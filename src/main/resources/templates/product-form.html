@@ -14,20 +14,16 @@
 <div th:replace="~{navbar :: navi(ProductForm)}"></div>
 
 <div class="container">
-    <form th:action="@{/product}" th:object="${product}" th:method="post">
-        <input type="hidden" th:field="*{id}">
+    <form th:action="@{/product}" th:method="post">
+        <input type="hidden" th:field="*{product.id}">
         <div class="mb-3">
             <label for=" title-id" class="form-label">Название продукта</label>
-            <input type="text" class="form-control" id=" title-id" th:field="*{title}" aria-describedby="emailHelp">
+            <input type="text" class="form-control" id=" title-id" th:field="*{product.title}" aria-describedby="emailHelp">
 
         </div>
         <div class="mb-3">
             <label for="cost-id" class="form-label">Цена</label>
-            <input type="text" class="form-control" id="cost-id" th:field="*{cost}">
-        </div>
-        <div class="mb-3">
-            <label for="count-id" class="form-label">Количество</label>
-            <input type="text" class="form-control" id="count-id" th:field="*{count}">
+            <input type="text" class="form-control" id="cost-id" th:field="*{product.cost}">
         </div>
         <div class="mb-3">
             <label for="date-id" class="form-label">Дата изготовления</label>
@@ -35,10 +31,26 @@
         </div>
         <div class="mb-3">
             <label for="status-id" class="form-label">Наличие товара</label>
-            <select class="form-select" aria-label="Default select example" id="status-id" th:field="*{status}">
-                <option th:each="statusValue : ${T(ru.gb.gbthymeleaf.entity.enums.Status).values()}"
-                th:value="${statusValue.name()}"
-                th:text="${statusValue.title}"></option>
+            <select class="form-select" aria-label="Default select example" id="status-id" th:field="*{product.status}">
+                <option th:each="statusValue : ${T(ru.gb.api.common.enums.Status).values()}"
+                        th:value="${statusValue.name()}"
+                        th:text="${statusValue.title}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="manufacturer-id" class="form-label">Изготовитель</label>
+            <select class="form-select" aria-label="Default select example" id="manufacturer-id" th:field="*{product.manufacturer}">
+                <option th:each="manufacturerValue : ${manufacturers}"
+                th:value="${manufacturerValue.name}"
+                th:text="${manufacturerValue.name}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="category-id" class="form-label">Категория</label>
+            <select class="form-select" aria-label="Default select example" id="category-id" multiple="multiple" th:field="*{chosenCategories.chosenCategory}">
+                <option th:each="categoryValue : ${categoriesList}"
+                        th:value="${categoryValue.categoryId}"
+                        th:text="${categoryValue.title}"></option>
             </select>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

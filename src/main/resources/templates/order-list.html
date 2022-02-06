@@ -11,34 +11,27 @@
 </head>
 <body>
 
-<div th:replace="~{navbar :: navi(Cart)}"></div>
+<div th:replace="~{navbar :: navi(OrderList)}"></div>
 
 <div class="container">
-    <span th:if="${cartProducts.size() == 0}">Товаров нет</span>
-    <div th:unless="${cartProducts.size() == 0}">
+    <span th:if="${orders.size() == 0}">Заказов нет</span>
+    <div th:unless="${orders.size() == 0}">
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Название</th>
-                <th scope="col">Цена</th>
+                <th scope="col">Номер заказа</th>
+                <th scope="col">Статус заказа</th>
             </tr>
             </thead>
             <tbody>
-            <tr
-            th:each="cartProduct: ${cartProducts}" th:attr="prod_index=${cartProduct.id}">
-                <td th:text="${cartProduct.title}"></td>
-                <td th:text="${cartProduct.cost}"></td>
-                <td>
-                    <a type="button" class="btn btn-warning" th:href="@{/cart/increase(id=${cartProduct.id})}">+</a>
-                </td>
-                <td>
-                    <a type="button" class="btn btn-danger" th:href="@{/cart/delete(id=${cartProduct.id})}">-</a>
-                </td>
+            <tr th:classappend="table-success"
+                th:each="order: ${orders}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${order.status.title}"></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <a type="button" class="btn btn-warning" th:href="@{/order}">Оформить заказ</a>
 </div>
 
 <div th:replace="~{footer :: footerBlock}"></div>
