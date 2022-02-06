@@ -24,16 +24,16 @@
                 <li class="nav-item">
                     <a class="nav-link" sec:authorize="hasAuthority('USER') || isAnonymous()" th:classappend="${activeTab == 'Cart' ? 'active' : ''}" th:href="@{/cart}">Корзина</a>
                 </li>
-                <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <form th:action="@{/logout}" method="post">
-                        <input type="submit" class="btn btn-danger" th:value="Выйти">
-                    </form>
-                </li>
-                <li sec:authorize="isAnonymous()" class="nav-item">
-                    <form th:action="@{/login}" method="post">
-                        <input type="submit" class="btn btn-warning" th:value="Войти">
-                    </form>
-                </li>
+<!--                <li sec:authorize="isAuthenticated()" class="nav-item">-->
+<!--                    <form th:action="@{/logout}" method="post">-->
+<!--                        <input type="submit" class="btn btn-danger" th:value="Выйти">-->
+<!--                    </form>-->
+<!--                </li>-->
+<!--                <li sec:authorize="isAnonymous()" class="nav-item">-->
+<!--                    <form th:action="@{/login}" method="post">-->
+<!--                        <input type="submit" class="btn btn-warning" th:value="Войти">-->
+<!--                    </form>-->
+<!--                </li>-->
             </ul>
         </div>
     </div>

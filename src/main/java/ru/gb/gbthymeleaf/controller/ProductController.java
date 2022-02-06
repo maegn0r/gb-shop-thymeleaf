@@ -2,23 +2,29 @@ package ru.gb.gbthymeleaf.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.gb.api.product.api.ProductGateway;
+import ru.gb.api.product.dto.ProductDto;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/product")
 public class ProductController {
 
-//    private final ProductService productService;
-//
-//    @GetMapping("/all")
-//    public String getProductList(Model model) {
-//        List<Product> list = productService.findAll();
-//        list.sort(Comparator.comparing(Product::getId));
-//        model.addAttribute("products", list);
-//        return "product-list";
-//    }
-//
+    private final ProductGateway productGateway;
+
+    @GetMapping("/all")
+    public String getProductList(Model model) {
+        System.out.println("in product");
+        List<ProductDto> list = productGateway.getProductList();
+        model.addAttribute("products", list);
+        return "product-list";
+    }
+
 //    @GetMapping
 //    public String showForm(Model model, @RequestParam(name = "id", required = false) Long id) {
 //        Product product;
