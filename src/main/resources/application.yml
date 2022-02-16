@@ -10,3 +10,17 @@ spring:
       label: ${SPRING_CLOUD_CONFIG_LABEL:master}
       username: ${SPRING_CLOUD_CONFIG_USERNAME:geek_user}
       password: ${SPRING_CLOUD_CONFIG_PASSWORD:geek_pass}
+  artemis:
+    user: 'artemis'
+    password: 'simetraehcapa'
+  mail:
+    host: 'smtp.gmail.com'
+    port: 587
+    username: 'novitsky.mail.shop.geek'
+    password: 'Novitsky.12345'
+    properties:
+      mail:
+        smtp:
+          auth: 'true'
+          starttls:
+            enable: 'true'
