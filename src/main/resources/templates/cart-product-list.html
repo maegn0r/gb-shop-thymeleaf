@@ -28,9 +28,9 @@
             th:each="cartProduct: ${cartProducts}" th:attr="prod_index=${cartProduct.id}">
                 <td th:text="${cartProduct.title}"></td>
                 <td th:text="${cartProduct.cost}"></td>
-                <td>
-                    <a type="button" class="btn btn-warning" th:href="@{/cart/increase(id=${cartProduct.id})}">+</a>
-                </td>
+<!--                <td>-->
+<!--                    <a type="button" class="btn btn-warning" th:href="@{/cart/increase(id=${cartProduct.id})}">+</a>-->
+<!--                </td>-->
                 <td>
                     <a type="button" class="btn btn-danger" th:href="@{/cart/delete(id=${cartProduct.id})}">-</a>
                 </td>

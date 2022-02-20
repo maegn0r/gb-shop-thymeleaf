@@ -1,44 +1,44 @@
 package ru.gb.gbthymeleaf.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.api.product.dto.ProductDto;
-import ru.gb.gbthymeleaf.choosen.ChosenCategoriesDto;
-import ru.gb.gbthymeleaf.tempDto.OrderDto;
-import ru.gb.gbthymeleaf.tempDto.OrderInfo;
-import ru.gb.gbthymeleaf.tempDto.enums.OrderStatus;
+import ru.gb.api.order.api.OrderGateway;
+import ru.gb.api.order.dto.OrderDto;
+import ru.gb.gbthymeleaf.utils.Cart;
 
-import java.util.HashSet;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("/order")
 public class OrderController {
-    public static final List<OrderDto> dummyOrders = List.of(new OrderDto(1L, OrderStatus.NEW),
-            new OrderDto(2L, OrderStatus.IN_PROGRESS),
-            new OrderDto(3L, OrderStatus.IN_PROGRESS),
-            new OrderDto(4L, OrderStatus.FINISHED),
-            new OrderDto(5L, OrderStatus.NEW));
+
+    private final OrderGateway orderGateway;
+    private Cart cart;
 
     @GetMapping("/all")
-    public String getProductList(Model model) {
-        model.addAttribute("orders", dummyOrders);
+    public String getOrderList(Model model) {
+        List<OrderDto> orderDtoList = orderGateway.getOrderList();
+        model.addAttribute("orders", orderDtoList);
         return "order-list";
     }
 
     @GetMapping
     public String showForm(Model model) {
-        model.addAttribute("order", new OrderInfo());
+        model.addAttribute("order", new OrderDto());
         return "order-form";
     }
 
     @PostMapping("/create")
-    public String createOrder(@ModelAttribute OrderInfo order){
-        //todo
-        System.out.println(order);
+    public String createOrder(@ModelAttribute OrderDto orderDto){
+        orderDto.setProducts(cart.getProducts());
+        orderDto.setDeliveryDate(LocalDate.now());
+        orderGateway.handlePost(orderDto);
+        cart.clear();
         return "redirect:/product/all";
     }
 }

@@ -36,7 +36,7 @@
                 <td th:text="${product.cost}"></td>
                 <td th:text="${product.manufacturer}"></td>
                 <td>
-                    <a type="button" class="btn btn-warning" th:if="${product.status.name() == 'ACTIVE'}" >В корзину</a>
+                    <a type="button" class="btn btn-warning" th:if="${product.status.name() == 'ACTIVE'}" th:href="@{/cart/addToCart(id=${product.id})}">В корзину</a>
                 </td>
                 <td>
                     <a type="button" class="btn btn-warning" th:href="@{/product(id=${product.id})}">Редактировать</a>
