@@ -1,6 +1,6 @@
 package ru.gb.gbthymeleaf.controller;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -8,7 +8,9 @@ import ru.gb.api.category.api.CategoryGateway;
 import ru.gb.api.manufacturer.api.ManufacturerGateway;
 import ru.gb.api.product.api.ProductGateway;
 import ru.gb.api.product.dto.ProductDto;
+import ru.gb.gbthymeleaf.api.ProductApi;
 import ru.gb.gbthymeleaf.choosen.ChosenCategoriesDto;
+import ru.gb.gbthymeleaf.utils.Cart;
 
 
 import java.time.LocalDate;
@@ -17,17 +19,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("/product")
 public class ProductController {
     private final ProductGateway productGateway;
     private final ManufacturerGateway manufacturerGateway;
     private final CategoryGateway categoryGateway;
+    private final ProductApi productApi;
+    private Cart cart;
 
 
     @GetMapping("/all")
     public String getProductList(Model model) {
-        List<ProductDto> list = productGateway.getProductList();
+//        List<ProductDto> list = productGateway.getProductList();
+        List<ProductDto> list = productApi.getProductList("Bearer_" + cart.getToken());
         model.addAttribute("products", list);
         return "product-list";
     }
